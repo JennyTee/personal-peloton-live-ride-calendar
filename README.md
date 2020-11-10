@@ -27,5 +27,12 @@ A Google Apps Script that updates a personal Google Calendar with specified Pelo
 13. Now that the script has permissions to run, check that "updateCalendar" is the selected function and click the play button again
 14. The script should run in under 10 seconds, unless you have lots of filters (creating events via Google Apps Scripts takes time).
 
+## Usage notes
+If you update the filters, the next time updateCalendar is run, any classes already on your calendar that do not meet the filter criteria will be removed.
+This script can only remove events it has added--it is written in such a way that it will not delete events from your calendar that it has not added.
+
 ## Troubleshooting
 If you have any red errors that pop up when you run the script, it generally means that you have a typo. Check your filter against the provided example.
+
+## Logs
+If you are interested in script run logs, go to View > Logs. (Sometimes it takes a few seconds after the script completes for the logs to appear.) The log at the very bottom will provide a summary of classes added, updated, and removed. The formatting isn't great, and the logs don't persist, but they will help you see what was added, removed, and/or changed.
