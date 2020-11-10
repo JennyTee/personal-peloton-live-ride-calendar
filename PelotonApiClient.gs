@@ -28,15 +28,15 @@ option must be surrounded by single quotes and separated with commas.
 
 var filters = [
   {
-    category: 'cycling',
+    category: 'Cycling',
     instructor: 'Christine D\'Ercole'
   }, 
   { 
-    category: 'cycling',
+    category: 'Cycling',
     instructor: 'Denis Morton'
   },
   {
-    category:'strength',
+    category:'Strength',
     instructor:'Adrian Williams'
   }
 ]
@@ -90,7 +90,7 @@ var queryEndTime = queryStartTime + 1213199;
 var url = `https://api.onepeloton.com/api/v3/ride/live?exclude_complete=true&content_provider=`
   + `studio&exclude_live_in_studio_only=true&start=${queryStartTime}&end=${queryEndTime}`;
 
-function updatePelotonLiveRideCalendar() {
+function updateCalendar() {
   // Need to track processed classes since Peloton API sometimes returns duplicate objects
   let existingEvents = getUpcomingPelotonCalendarEvents();
   let existingEventCount = existingEvents.size;
