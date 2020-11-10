@@ -45,20 +45,24 @@ Enter YOUR filters below (as many as you want)!
 */
 
 var filters = [
- 
+
 ]
 
 
 /*
 Step 2. Set Up Trigger
 
-Run this function to set a trigger that will run this script on your calendar once per day. This way your 
-calendar will stay up-to-date. If classes are added, updated, or removed, your calendar will be updated 
-accordingly.
+When run, the buildDailyTrigger function below will set a trigger that will run this script on your calendar 
+once per day. This way your calendar will stay up-to-date. If classes are added, updated, or removed, your calendar 
+will be updated accordingly.
+
+To run the function, select it in the dropdown menu to the right of the bug icon near the top of this page.
+(It should be the first one in the list.) Then click the play button (triangle icon).
+
 */
 
 function buildDailyTrigger() {
- ScriptApp.newTrigger('updatePelotonLiveRideCalendar')
+ ScriptApp.newTrigger('updateCalendar')
       .timeBased()
       .everyDays(1)
       .atHour(5)
@@ -247,60 +251,6 @@ function deleteEventById(eventId) {
   } catch(e) {
     logError(e, event);
   }
-}
-
-// Deletes all existing events in Google calendar. 
-// Only use if you really want to delete all existing events!
-// You may have to run this more than once--it seems to time out 
-// if there are many items in the calendar.
-function deleteAllFutureEvents() {
-  let startDate = new Date();
-  let events = Calendar.Events.list(calendarId, {
-    timeMin: startDate.toISOString(),
-    singleEvents: true,
-    orderBy: 'startTime',
-    maxResults: 1000
-  });
-  
-  if (events.items && events.items.length > 0) {
-    events.items.forEach(i => deleteEventById(i.id));
-  }
-}
-
-// used for testing
-function deleteAllEventsAddedByScript() {
-  let existingEvents = getAllPelotonCalendarEventIds();
-  for (let i = 0; i < existingEvents.length; i++) {
-    let eventId = existingEvents[i];
-    deleteEventById(eventId);
-  }
-}
-
-// used for testing
-function getAllPelotonCalendarEventIds() {
-  let eventIds = [];
-  let startDate = new Date(2018, 11, 24, 10, 33, 30, 0);
-  let events = Calendar.Events.list(calendarId, {
-    timeMin: startDate.toISOString(),
-    singleEvents: true,
-    orderBy: 'startTime',
-    maxResults: 500
-  });
-  if (events.items && events.items.length > 0) {
-    for (let i = 0; i < events.items.length; i++) {
-      let event = events.items[i];
-      let extendedProperties = event.getExtendedProperties()
-      if (!extendedProperties) { 
-        continue;
-      }
-      let sharedExtendedProperties = extendedProperties.getShared();
-      if (!!sharedExtendedProperties && sharedExtendedProperties.classId != null) {
-        eventIds.push(event.id);
-      }
-    }
-  }
-
-  return eventIds;
 }
 
 function checkForEventUpdates(pelotonClass, existingEvent, actualStartTime, isEncore, metadataId) {
