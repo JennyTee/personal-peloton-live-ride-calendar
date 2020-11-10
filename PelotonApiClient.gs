@@ -149,7 +149,7 @@ function updateCalendar() {
 function getMeetsFilterCriteria(classInfo) {
   for (let i = 0; i < filters.length; i++) {
     let filter = filters[i];
-    if (classInfo.fitness_discipline_display_name === filter.category &&
+    if (classInfo.fitness_discipline_display_name.toLowerCase() === filter.category.toLowerCase() &&
         classInfo.instructor_id === instructorNameHashMap.get(filter.instructor)) {
       return true;
     }
