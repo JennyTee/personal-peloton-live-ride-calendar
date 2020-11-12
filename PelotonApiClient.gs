@@ -13,31 +13,40 @@ does before granting it access to modify your calendar.
 
 Step 1. Set Up Filters
 
-Category options: Cycling, Strength, Yoga, Meditation, Cardio, Stretching, Outdoor, Running, Walking, Bootcamp
+Category options: ALL, Cycling, Strength, Yoga, Meditation, Cardio, Stretching, Outdoor, Running, Walking,
+                  Bootcamp
 
-Instructor options: Aditi Shah, Adrian Williams, Anna Greenberg, Alex Toussaint, Ally Love, Andy Speer,
+Instructor options: ALL, Aditi Shah, Adrian Williams, Anna Greenberg, Alex Toussaint, Ally Love, Andy Speer,
                     Becs Gentry, Ben Alldis, Chase Tucker, Chelsea Jackson Roberts, Christine D\'Ercole,
                     Cody Rigsby, Denis Morton, Emma Lovewell, Erik Jäger, Hannah Corbin, Hannah Frankson,
                     Irène Scholz, Jenn Sherman, Jess Sims, Jess King, Kendall Toole, Kristin McGee,
                     Leanne Hainsby, Matt Wilpers, Matty Maggiacomo, Olivia Amato, Rebecca Kennedy, Robin Arzón,
                     Ross Rayburn, Sam Yo, Selena Samuela, Tunde Oyeneyin, Christian Vande Velde
+                          
+When setting up your filters, you must copy/paste the filter options exactly as listed above. As shown below,
+you will put square brackets around the entire list of filters. Each filter must be surrounded by curly braces 
+and separated with commas. Inside of the filter, the selected option must be surrounded by single quotes and 
+separated with commas.
 
-Here is an example with 3 filters. As shown, you will put square brackets around the entire list of filters. 
-Each filter must be surrounded by curly braces and separated with commas. Inside of the filter, the selected
-option must be surrounded by single quotes and separated with commas.
+This example will filter for Christine's cycling classes, Adrian's strength classes, all yoga classes, and 
+all classes taught by Denis:
 
 var filters = [
   {
     category: 'Cycling',
     instructor: 'Christine D\'Ercole'
-  }, 
-  { 
-    category: 'Cycling',
-    instructor: 'Denis Morton'
   },
   {
     category:'Strength',
     instructor:'Adrian Williams'
+  },
+  { 
+    category: 'Yoga',
+    instructor: 'ALL'
+  },
+  { 
+    category: 'ALL',
+    instructor: 'Denis Morton'
   }
 ]
 
@@ -151,10 +160,13 @@ function updateCalendar() {
 }
 
 function getMeetsFilterCriteria(classInfo) {
+  let wildcard = 'all';
   for (let i = 0; i < filters.length; i++) {
     let filter = filters[i];
-    if (classInfo.fitness_discipline_display_name.toLowerCase() === filter.category.toLowerCase() &&
-        classInfo.instructor_id === instructorNameHashMap.get(filter.instructor)) {
+    if ((classInfo.fitness_discipline_display_name.toLowerCase() === filter.category.toLowerCase()
+              || filter.category.toLowerCase() === 'all') &&
+        (classInfo.instructor_id === instructorNameHashMap.get(filter.instructor) 
+              || filter.instructor.toLowerCase() === 'all')) {
       return true;
     }
   }
@@ -173,7 +185,6 @@ function getInstructorName(instructorId) {
   }
   return '';
 }
-
 
 function createEvent(ride, actualStartTime, isEncore, rideMetadataId) {
   let startTime = actualStartTime * 1000;
