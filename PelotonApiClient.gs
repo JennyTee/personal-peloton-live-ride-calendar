@@ -18,10 +18,11 @@ Category options: ALL, Cycling, Strength, Yoga, Meditation, Cardio, Stretching, 
 
 Instructor options: ALL, Aditi Shah, Adrian Williams, Anna Greenberg, Alex Toussaint, Ally Love, Andy Speer,
                     Becs Gentry, Ben Alldis, Chase Tucker, Chelsea Jackson Roberts, Christine D\'Ercole,
-                    Cody Rigsby, Denis Morton, Emma Lovewell, Erik Jäger, Hannah Corbin, Hannah Frankson,
-                    Irène Scholz, Jenn Sherman, Jess Sims, Jess King, Kendall Toole, Kristin McGee,
-                    Leanne Hainsby, Matt Wilpers, Matty Maggiacomo, Olivia Amato, Rebecca Kennedy, Robin Arzón,
-                    Ross Rayburn, Sam Yo, Selena Samuela, Tunde Oyeneyin, Christian Vande Velde
+                    Cliff Dwenger, Cody Rigsby, Denis Morton, Emma Lovewell, Erik Jäger, Hannah Corbin, 
+                    Hannah Frankson, Irène Scholz, Jenn Sherman, Jess Sims, Jess King, Kendall Toole, 
+                    Kristin McGee, Leanne Hainsby, Matt Wilpers, Matty Maggiacomo, Mayla Wedekind, 
+                    Olivia Amato, Rebecca Kennedy, Robin Arzón, Ross Rayburn, Sam Yo, Selena Samuela, 
+                    Tunde Oyeneyin, Christian Vande Velde
                           
 When setting up your filters, you must copy/paste the filter options exactly as listed above. As shown below,
 you will put square brackets around the entire list of filters. Each filter must be surrounded by curly braces 
