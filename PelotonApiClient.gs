@@ -14,7 +14,7 @@ does before granting it access to modify your calendar.
 Step 1. Set Up Filters
 
 Category options: ALL, Cycling, Strength, Yoga, Meditation, Cardio, Stretching, Outdoor, Running, Walking,
-                  Bootcamp
+                  Bootcamp, Bike_Bootcamp
 
 Instructor options: ALL, Aditi Shah, Adrian Williams, Anna Greenberg, Alex Toussaint, Ally Love, Andy Speer,
                     Becs Gentry, Ben Alldis, Chase Tucker, Chelsea Jackson Roberts, Christine D\'Ercole,
@@ -28,8 +28,8 @@ you will put square brackets around the entire list of filters. Each filter must
 and separated with commas. Inside of the filter, the selected option must be surrounded by single quotes and 
 separated with commas.
 
-This example will filter for Christine's cycling classes, Adrian's strength classes, all yoga classes, and 
-all classes taught by Denis:
+This example will filter for Christine's cycling classes, Adrian's strength classes, Jess Sims' bike bootcamp 
+classes, all yoga classes, and all classes taught by Denis:
 
 var filters = [
   {
@@ -39,6 +39,10 @@ var filters = [
   {
     category:'Strength',
     instructor:'Adrian Williams'
+  },
+  {
+    category:'Bike_Bootcamp',
+    instructor:'Jess Sims'
   },
   { 
     category: 'Yoga',
