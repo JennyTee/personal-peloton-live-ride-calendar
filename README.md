@@ -16,7 +16,7 @@ A Google Apps Script that updates a personal Google Calendar with specified Pelo
 * Go to Resources > Advanced Google services
 * Scroll down to "Calendar API" and toggle the "off" switch to "on"
 * Click OK
-11. Follow the instructions in the code to a) add your custom filters and b) set up the trigger
+11. Follow the instructions in the code to a) add your custom filters, b) test the script, and c) set up a trigger to run the script automatically once per hour
 12. To test your filters, run the file manually once. To run manually:
 * Select "updateCalendar" from the select function dropdown (to the right of the bug icon)
 * Click the play button (triangle icon) to run the "updateCalendar" function
@@ -30,6 +30,8 @@ A Google Apps Script that updates a personal Google Calendar with specified Pelo
 ## Usage notes
 If you update the filters, the next time updateCalendar is run, any classes already on your calendar that do not meet the filter criteria will be removed.
 This script can only remove events it has added--it is written in such a way that it will not delete events from your calendar that it has not added.
+
+If you would like to stop the script from executing in the future, go to https://script.google.com/home/triggers and delete the trigger associated with the script. (To re-start the script, you would just need to run the createHourlyTrigger function again.)
 
 ## Troubleshooting
 If you have any red errors that pop up when you run the script, it generally means that you have a typo. Check your filter against the provided example.
