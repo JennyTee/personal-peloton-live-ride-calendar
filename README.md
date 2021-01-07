@@ -12,14 +12,11 @@ A Google Apps Script that updates a personal Google Calendar with specified Pelo
 7. Click into the code.gs file and delete all of the sample code in it
 8. Paste the code you copied in step 3 (CTRL + V)
 9. Save the file (File > Save)
-10. Enable the Google Calendar API:
+10. Enable the Google Calendar API. (This is needed for the script to run properly since some of the code uses methods from this library.)
 * Go to Resources > Advanced Google services
 * Scroll down to "Calendar API" and toggle the "off" switch to "on"
 * Click OK
 11. Follow the instructions in the code to a) add your custom filters, b) test the script, and c) set up a trigger to run the script automatically once per hour
-12. To test your filters, run the file manually once. To run manually:
-* Select "updateCalendar" from the select function dropdown (to the right of the bug icon)
-* Click the play button (triangle icon) to run the "updateCalendar" function
 * You will be prompted to authorize the script to access your calendar. Click on Review Permissions and choose your account.
 * You will see a security warning because Google has not verified this script. To bypass this warning, click on Advanced and then "Go to [whatever you named your project] (unsafe)"
 ** Note: There is not a way around this at this point in time. If you are uncomfortable granting access to your calendar for an unverified script, please do not proceeed. As with any script, it's a good idea to review the code before running anything so you know what it does. 
@@ -34,7 +31,5 @@ This script can only remove events it has added--it is written in such a way tha
 If you would like to stop the script from executing in the future, go to https://script.google.com/home/triggers and delete the trigger associated with the script. (To re-start the script, you would just need to run the createHourlyTrigger function again.)
 
 ## Troubleshooting
-If you have any red errors that pop up when you run the script, it generally means that you have a typo. Check your filter against the provided example.
+If you see any red errors that pop up when you run the script, it generally means that you have a typo. Check your filter against the provided example and make sure all the commas and brackets are there.
 
-## Logs
-If you are interested in script run logs, go to View > Logs. (Sometimes it takes a few seconds after the script completes for the logs to appear.) The log at the very bottom will provide a summary of classes added, updated, and removed. The formatting isn't great, and the logs don't persist, but they will help you see what was added, removed, and/or changed.
