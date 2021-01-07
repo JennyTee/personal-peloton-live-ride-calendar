@@ -98,9 +98,6 @@ https://script.google.com/home/triggers to delete any duplicate triggers created
 
 */
 
-
-
-
 /***************************************************************************************************************
                     END INSTRUCTIONS - DO NOT EDIT BELOW THIS LINE (unless you want to!)                                               
 ***************************************************************************************************************/
