@@ -1,6 +1,6 @@
 /* 
 Personal Peloton Live Ride Calendar Script
-Version 1.0.0
+Version 1.1.0
 
 DISCLAIMER: this script is provided as-is, and the author is not responsible for any issues that arise from 
 using it. As with any open-source software script, it's a good idea to read through the code and know what it 
@@ -29,6 +29,8 @@ you will put square brackets around the entire list of filters. Each filter must
 and separated with commas. Inside of the filter, the selected option must be surrounded by single quotes and 
 separated with commas.
 
+Note: you need to update your filter before moving on to step 2. You may update your filter at any time.
+
 This example will filter for Christine's cycling classes, Adrian's strength classes, Jess Sims' bike bootcamp 
 classes, all yoga classes, and all classes taught by Denis:
 
@@ -55,33 +57,48 @@ var filters = [
   }
 ]
 
-Enter YOUR filters below (as many as you want)!
+Enter YOUR filters below (as many as you want)! Save the code (Click on File > Save) before moving on.
 */
 
 var filters = [
-
+  
 ]
 
 
 /*
-Step 2. Set Up Trigger
 
-When run, the buildDailyTrigger function below will set a trigger that will run this script on your calendar 
-once per day. This way your calendar will stay up-to-date. If classes are added, updated, or removed, your calendar 
-will be updated accordingly.
+Step 2. 
+Test the script to make sure your filter is working as-expected.
 
-To run the function, select it in the dropdown menu to the right of the bug icon near the top of this page.
-(It should be the first one in the list.) Then click the play button (triangle icon).
+To run the script, select the "updateCalendar" function in the dropdown menu to the right of the bug icon near
+the top of this page. (It should be the first one in the list.) Then click Run (triangle icon) to the
+left of the debug (bug) icon.
+
+You will see a yellow banner that says "Running function runScript..." This will disappear once the function is 
+finished running. (It may take 10-20 seconds.) If the filter above is configured correctly, you should see any
+matching classes added to your Google Calendar after the function finishes running.
+
+Note: if you have lots of classes in your filter, it's possible that Google will limit the number of events 
+ths script creates for you. If you think all of the matching events weren't created, you can just re-run the script.
+You should see events created between now and approximately 2 weeks in the future.
+
+
+Step 3.
+Set up a trigger to update your calendar once per hour!
+
+Select the "createHourlyTrigger" function in the dropdown menu, then click the play button (just like you did in 
+Step 2). 
+
+When run, the createHourlyTrigger function will create a trigger that will run this script on your calendar 
+once per hour. This ensures your calendar stays up-to-date. Whenever classes matching your filter are added, 
+updated, or removed, your calendar will be updated accordingly.
+
+Only run this function once! (If you accidentally run it more than once, you can go to 
+https://script.google.com/home/triggers to delete any duplicate triggers created.)
 
 */
 
-function buildDailyTrigger() {
- ScriptApp.newTrigger('updateCalendar')
-      .timeBased()
-      .everyDays(1)
-      .atHour(5)
-      .create();
-}
+
 
 
 /***************************************************************************************************************
@@ -162,6 +179,14 @@ function updateCalendar() {
   } 
   
   logScriptRun(existingEventCount, pelotonClassCount, addedClassCount, removedClassCount, updatedClassCount);
+}
+
+function createHourlyTrigger() {
+  ScriptApp.newTrigger('updateCalendar')
+  .timeBased()
+  .everyHours(1)
+  .atHour(5)
+  .create();
 }
 
 function getMeetsFilterCriteria(classInfo) {
