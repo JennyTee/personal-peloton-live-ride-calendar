@@ -64,9 +64,11 @@ var filters = [
   
 ]
 
+// Do you want Encore classes?  If not, switch this to false! (Keep the semi-colon)
+var includeEncoreClasses = true;
+
 
 /*
-
 Step 2. 
 Test the script to make sure your filter is working as-expected.
 
@@ -154,7 +156,7 @@ function updateCalendar() {
     // The actual class start time is located inside of the Data object
     let actualStartTime = pelotonClassMetadata.scheduled_start_time;
 
-    let meetsFilterCriteria = getMeetsFilterCriteria(classInfo);
+    let meetsFilterCriteria = getMeetsFilterCriteria(classInfo, pelotonClassMetadata.is_encore);
     let hasMatchingCalendarEvent = existingEvents.has(metadataId);
     
     if (meetsFilterCriteria && hasMatchingCalendarEvent) {
@@ -192,8 +194,12 @@ function createHourlyTrigger() {
   Logger.log("Hourly trigger created.");
 }
 
-function getMeetsFilterCriteria(classInfo) {
+function getMeetsFilterCriteria(classInfo, isEncore) {
   let wildcard = 'all';
+  if (!includeEncoreClasses && isEncore) {
+    return false;
+  }
+
   for (let i = 0; i < filters.length; i++) {
     let filter = filters[i];
     if ((classInfo.fitness_discipline_display_name.toLowerCase() === filter.category.toLowerCase()
