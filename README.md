@@ -13,9 +13,9 @@ A Google Apps Script that updates a personal Google Calendar with specified Pelo
 8. Paste the code you copied in step 3 (CTRL + V)
 9. Save the file (File > Save)
 10. Enable the Google Calendar API. (This is needed for the script to run properly since some of the code uses methods from this library.)
-* Go to Resources > Advanced Google services
-* Scroll down to "Calendar API" and toggle the "off" switch to "on"
-* Click OK
+* Click the + next to Services (left-hand navigation menu)
+* Scroll down to "Google Calendar API" and click on it to highlight
+* Click Add
 11. Follow the instructions in the code to a) add your custom filters, b) test the script, and c) set up a trigger to run the script automatically once per hour
 * You will be prompted to authorize the script to access your calendar. Click on Review Permissions and choose your account.
 * You will see a security warning because Google has not verified this script. To bypass this warning, click on Advanced and then "Go to [whatever you named your project] (unsafe)"
