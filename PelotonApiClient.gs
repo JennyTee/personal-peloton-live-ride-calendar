@@ -64,9 +64,9 @@ var filters = [
   
 ]
 
-// Do you want Encore classes?  If not, switch this to false! (Keep the semi-colon)
+// Do you want Encore classes and/or classes in German? If not, switch these to false! (Keep the semi-colon)
 var includeEncoreClasses = true;
-
+var includeGermanClasses = true;
 
 /*
 Step 2. 
@@ -196,7 +196,12 @@ function createHourlyTrigger() {
 
 function getMeetsFilterCriteria(classInfo, isEncore) {
   let wildcard = 'all';
+
   if (!includeEncoreClasses && isEncore) {
+    return false;
+  }
+
+  if (!includeGermanClasses && classInfo.origin_locale === 'de-DE') {
     return false;
   }
 
