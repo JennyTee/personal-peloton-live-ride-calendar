@@ -70,17 +70,21 @@ var filters = [
 Step 2. 
 Test the script to make sure your filter is working as-expected.
 
-To run the script, select the "updateCalendar" function in the dropdown menu to the right of the bug icon near
-the top of this page. (It should be the first one in the list.) Then click Run (triangle icon) to the
-left of the debug (bug) icon.
+To run the script, select the "updateCalendar" function in the dropdown menu near the top of this page. (It 
+should be the first one in the list.) Then click Run (triangle icon) to the left of the debug (bug) icon.
 
-You will see a yellow banner that says "Running function runScript..." This will disappear once the function is 
-finished running. (It may take 10-20 seconds.) If the filter above is configured correctly, you should see any
-matching classes added to your Google Calendar after the function finishes running.
+The script should take 10-20 seconds to run, depending on how many events match your filter. If the filter above 
+is configured correctly, you should see any matching classes added to your Google Calendar after the function
+finishes running.
 
-Note: if you have lots of classes in your filter, it's possible that Google will limit the number of events 
-ths script creates for you. If you think all of the matching events weren't created, you can just re-run the script.
-You should see events created between now and approximately 2 weeks in the future.
+After reviewing your calendar, if you decide you want to update the filter, repeat steps 1 and 2. You can do this
+as many times as you would like. If you update the filter, classes added to your calendar that no longer meet the
+filter requirements will be removed.
+
+Note: if you have lots of classes in your filter, it's possible that Google will limit the number of events ths
+script creates for you. If you think all of the matching events weren't created, you can just re-run the script.
+Assuming classes matching your filter exist, you  should see events created between now and approximately 2 weeks
+in the future.
 
 
 Step 3.
@@ -90,11 +94,11 @@ Select the "createHourlyTrigger" function in the dropdown menu, then click the p
 Step 2). 
 
 When run, the createHourlyTrigger function will create a trigger that will run this script on your calendar 
-once per hour. This ensures your calendar stays up-to-date. Whenever classes matching your filter are added, 
-updated, or removed, your calendar will be updated accordingly.
+once per hour. This ensures your calendar stays up-to-date. Whenever Peloton adds, updates, or cancels classes
+matching your filter, your calendar will be updated accordingly.
 
-Only run this function once! (If you accidentally run it more than once, you can go to 
-https://script.google.com/home/triggers to delete any duplicate triggers created.)
+You only need to run this function once! If you want to see the created trigger, click on Triggers in the
+left-hand navigation bar. This is where you would go to view, update, or delete triggers.
 
 */
 
@@ -184,6 +188,8 @@ function createHourlyTrigger() {
   .everyHours(1)
   .atHour(5)
   .create();
+
+  Logger.log("Hourly trigger created.");
 }
 
 function getMeetsFilterCriteria(classInfo) {
