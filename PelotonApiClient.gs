@@ -14,7 +14,7 @@ does before granting it access to modify your calendar.
 Step 1. Set Up Filters
 
 Category options: ALL, Cycling, Strength, Yoga, Meditation, Cardio, Stretching, Outdoor, Running, Walking,
-                  Bootcamp, Bike_Bootcamp
+                  Tread Bootcamp, Bike Bootcamp
 
 Instructor options: ALL, Aditi Shah, Adrian Williams, Anna Greenberg, Alex Toussaint, Ally Love, Andy Speer,
                     Becs Gentry, Ben Alldis, Chase Tucker, Chelsea Jackson Roberts, Christine D\'Ercole,
@@ -44,7 +44,7 @@ var filters = [
     instructor:'Adrian Williams'
   },
   {
-    category:'Bike_Bootcamp',
+    category:'Bike Bootcamp',
     instructor:'Jess Sims'
   },
   { 
