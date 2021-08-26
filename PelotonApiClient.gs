@@ -1,6 +1,10 @@
 /* 
 Personal Peloton Live Ride Calendar Script
-Version 1.1.0
+Version 1.2.0
+
+Updates in this version:
+-Added user authentication per change in Peloton API requirements as of August 2021
+-Added new instructors to instructor list
 
 DISCLAIMER: this script is provided as-is, and the author is not responsible for any issues that arise from 
 using it. As with any open-source software script, it's a good idea to read through the code and know what it 
@@ -11,17 +15,25 @@ does before granting it access to modify your calendar.
                                               INSTRUCTIONS                                                    
 ***************************************************************************************************************
 
-Step 1. Set Up Filters
+Step 1. Enter your Peloton Username and Password. (Keep the single quotes and semicolon where they are)
+
+Note: this script will only send your username/password to the Peloton API - it does not save or otherwise use your credentials. 
+*/
+const username = 'YOUR_USERNAME_HERE';
+const password = 'YOUR_PASSWORD_HERE';
+/*
+
+Step 2. Set Up Filters
 
 Category options: ALL, Cycling, Strength, Yoga, Meditation, Cardio, Running, Walking, Tread Bootcamp, Bike Bootcamp
 
 Instructor options: ALL, Aditi Shah, Adrian Williams, Anna Greenberg, Alex Toussaint, Ally Love, Andy Speer,
-                    Becs Gentry, Ben Alldis, Chase Tucker, Chelsea Jackson Roberts, Christine D\'Ercole,
-                    Cliff Dwenger, Cody Rigsby, Denis Morton, Emma Lovewell, Erik Jäger, Hannah Corbin, 
-                    Hannah Frankson, Irène Scholz, Jenn Sherman, Jess Sims, Jess King, Kendall Toole, 
-                    Kristin McGee, Leanne Hainsby, Matt Wilpers, Matty Maggiacomo, Mayla Wedekind, 
-                    Olivia Amato, Rebecca Kennedy, Robin Arzón, Ross Rayburn, Sam Yo, Selena Samuela, 
-                    Tunde Oyeneyin, Christian Vande Velde
+                    Becs Gentry, Ben Alldis, Bradley Rose, Callie Gullickson, Chase Tucker, Cliff Dwenger, 
+                    Chelsea Jackson Roberts, Christine D\'Ercole, Cliff Dwenger, Cody Rigsby, Denis Morton, Emma Lovewell, 
+                    Erik Jäger, Hannah Corbin, Hannah Frankson, Irène Scholz, Jenn Sherman, Jess Sims, Jess King, 
+                    Kendall Toole, Kirra Michel, Kristin McGee, Leanne Hainsby, Marcel Maurer, Mariana Fernández, 
+                    Matt Wilpers, Matty Maggiacomo, Mayla Wedekind, Nico Sarani, Olivia Amato, Rad Lopez, Rebecca Kennedy, 
+                    Robin Arzón, Ross Rayburn, Sam Yo, Selena Samuela, Tunde Oyeneyin, Christian Vande Velde
                           
 When setting up your filters, you must copy/paste the filter options exactly as listed above. As shown below,
 you will put square brackets around the entire list of filters. Each filter must be surrounded by curly braces 
@@ -68,8 +80,7 @@ var includeEncoreClasses = true;
 var includeGermanClasses = true;
 
 /*
-Step 2. 
-Test the script to make sure your filter is working as-expected.
+Step 3. Test the script to make sure your filter is working as-expected.
 
 To run the script, select the "updateCalendar" function in the dropdown menu near the top of this page. (It 
 should be the first one in the list.) Then click Run (triangle icon) to the left of the debug (bug) icon.
@@ -131,7 +142,9 @@ function updateCalendar() {
   // Need to track processed classes since Peloton API sometimes returns duplicate objects
   let existingEvents = getUpcomingPelotonCalendarEvents();
   let existingEventCount = existingEvents.size;
-  let response = UrlFetchApp.fetch(url, {'muteHttpExceptions': true});
+
+  const options = getHttpOptions();
+  let response = UrlFetchApp.fetch(url, options);
   let json = response.getContentText();
   data = JSON.parse(json);
   
@@ -181,6 +194,41 @@ function updateCalendar() {
   } 
   
   logScriptRun(existingEventCount, pelotonClassCount, addedClassCount, removedClassCount, updatedClassCount);
+}
+
+function getHttpOptions() {
+  const credentials = {
+    'username_or_email': username,
+    'password': password
+    };
+  const loginOptions = {
+    'method' : 'post',
+    'contentType': 'application/json',
+    'Connection' : 'keep-alive',
+    'payload' : JSON.stringify(credentials)
+  };
+  const loginApiResponse = UrlFetchApp.fetch('https://api.onepeloton.com/auth/login', loginOptions);
+  const loginresponsejson = loginApiResponse.getContentText();
+  const parsedLoginResponse = JSON.parse(loginresponsejson);
+  const sessionid = parsedLoginResponse['session_id']; //we need to send this to be logged in for future GET and POST requests
+  Utilities.sleep(2000);
+ 
+  // GET request for user info
+  const headers = {
+  'User-Agent' : 'Mozilla/5.0',
+  'Content-Type' : 'application/json;charset=utf-8',
+  'X-Requested-With' : 'XmlHttpRequest',
+  'Peloton-Platform' : 'web',
+  'muteHttpExceptions' : 'true',
+  'Cookie' : 'peloton_session_id=' + sessionid
+  };
+
+  const options = {
+    'method' : 'get',
+    'headers' : headers
+  };
+
+  return options;
 }
 
 function createHourlyTrigger() {
